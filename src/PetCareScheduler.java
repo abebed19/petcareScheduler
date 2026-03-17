@@ -1,3 +1,6 @@
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -13,7 +16,7 @@ public class PetCareScheduler {
             System.out.println("Please select your desired Option from the following");
             System.out.println("1. Register pets");
             System.out.println("2. Schedule appointments");
-            System.out.println("3. Display pets");
+            System.out.println("3. Save Data");
             System.out.println("4. Display appointments for a Pet");
             System.out.println("5. Save to file ");
             System.out.println("6. Exit");
@@ -27,6 +30,11 @@ public class PetCareScheduler {
                 case "2":
                     scheduleAppointment();
                     break;
+                case "3":
+                    saveData();
+                    break;
+                default:
+                    System.out.println("Invalid Option please provide a valid option");
 
             }
         }
@@ -101,5 +109,15 @@ public class PetCareScheduler {
         System.out.println("Appointment scheduled successfully");
 
 
+    }
+    public static void saveData(){
+        try{
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Pets.csv"));
+            oos.writeObject(pets);
+            System.out.println("Data saved successfully");
+
+        }catch (IOException ex){
+            System.out.println("Error while saving data: "+ ex.getMessage());
+        }
     }
 }
