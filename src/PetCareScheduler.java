@@ -17,11 +17,12 @@ public class PetCareScheduler {
             System.out.println("1. Register pets");
             System.out.println("2. Schedule appointments");
             System.out.println("3. Save Data");
-            System.out.println("4. Display appointments for a Pet");
-            System.out.println("5. Save to file ");
+            System.out.println("4. Display  Pets");
+            System.out.println("5. Generate Report");
             System.out.println("6. Exit");
 
             String option = scanner.nextLine();
+
 
             switch (option){
                 case "1":
@@ -36,8 +37,9 @@ public class PetCareScheduler {
                 case "4":
                     displayPets();
                     break;
-
-
+                case "5":
+                    generateReport();
+                    break;
                 default:
                     System.out.println("Invalid Option please provide a valid option");
 
@@ -142,5 +144,20 @@ public class PetCareScheduler {
              }
 
         }
+    }
+    public static void generateReport(){
+        if(pets.isEmpty()){
+            System.out.println("No record available to generate report");
+            return;
+        }
+        int totalPets = pets.size();
+        System.out.println("Total  pets exist in our catalog :"+ totalPets);
+        int totalAppointments =0;
+        for(Pet pet : pets.values()){
+            if(!pet.getAppointments().isEmpty()){
+                totalAppointments = totalAppointments + pet.getAppointments().size();
+            }
+        }
+        System.out.println("Total Appointments handled: " + totalAppointments);
     }
 }

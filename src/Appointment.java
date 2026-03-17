@@ -21,4 +21,6 @@ public class Appointment implements Serializable {
     public String toString() {
         return String.format("%s - %s - %s", this.appointmentType, this.dateTime, this.note);
     }
+
+
 }
