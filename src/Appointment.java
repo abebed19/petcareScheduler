@@ -4,9 +4,9 @@ public class Appointment {
     private String appointmentType;
     private LocalDateTime dateTime;
     private String note;
-    public Appointment(String appointmentType, String note) {
+    public Appointment(String appointmentType, LocalDateTime dateTime, String note) {
         this.appointmentType = appointmentType;
-        this.dateTime = LocalDateTime.now();
+        this.dateTime = dateTime;
         this.note = note;
     }
 

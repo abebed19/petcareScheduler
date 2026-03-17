@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -10,7 +12,7 @@ public class PetCareScheduler {
         while(true){
             System.out.println("Please select your desired Option from the following");
             System.out.println("1. Register pets");
-            System.out.println("2. Create Appointments");
+            System.out.println("2. Schedule appointments");
             System.out.println("3. Display pets");
             System.out.println("4. Display appointments for a Pet");
             System.out.println("5. Save to file ");
@@ -21,7 +23,9 @@ public class PetCareScheduler {
             switch (option){
                 case "1":
                     registerPet();
-                    System.out.println(pets.isEmpty());
+                    break;
+                case "2":
+                    scheduleAppointment();
                     break;
 
             }
@@ -68,5 +72,34 @@ public class PetCareScheduler {
         } else{
             return;
         }
+    }
+    public static void scheduleAppointment(){
+        System.out.println("Enter appointment type: ");
+        String appointmentType = scanner.nextLine();
+        System.out.println("Enter appointment Date and time using yyyy-MM-dd HH:mm:ss:");
+        LocalDateTime dateTime = null;
+
+        while(true){
+            try{
+                dateTime = LocalDateTime.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                break;
+            }catch(Exception ex){
+                System.out.println("Please provide date and time using yyyy-MM-dd HH:mm:ss");
+            }
+        }
+        System.out.println("Enter notes ");
+        String note  = scanner.nextLine();
+        Appointment appointment = new Appointment(appointmentType,dateTime,note);
+        System.out.println("Enter Please tell us Pet  ID: ");
+        String petId = scanner.nextLine().trim();
+        Pet pet = pets.get(petId);
+        if(pet == null){
+            System.out.println("Pet Not Found");
+            return;
+        }
+        pet.addAppointment(appointment);
+        System.out.println("Appointment scheduled successfully");
+
+
     }
 }
