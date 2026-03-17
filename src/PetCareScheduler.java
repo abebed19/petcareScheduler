@@ -20,12 +20,35 @@ public class PetCareScheduler {
 
             switch (option){
                 case "1":
+                    registerPet();
+                    System.out.println(pets.isEmpty());
+                    break;
 
             }
         }
     }
 
-    public static void RegisterNewPet(){
+    public static void registerPet(){
+        System.out.println("Enter Pet Id: ");
+        String id =  scanner.nextLine().trim();
+        System.out.println("Enter pet name: ");
+        String name = scanner.nextLine();
+        System.out.println("Enter pet species: ");
+        String petSpecies = scanner.nextLine();
+        System.out.println("Enter pet age: ");
+        int age = Integer.parseInt(scanner.nextLine().trim());
+        System.out.println("Please enter owner name: ");
+        String ownerName = scanner.nextLine();
+        System.out.println("please provide contact info");
+        String contactInfo = scanner.nextLine();
 
+        Pet pet = new Pet(id,name,petSpecies,age,ownerName,contactInfo);
+
+        if(pets.get(id) == null){
+            pets.put(id, pet);
+            System.out.println("Pet registered Successfully");
+        } else{
+            return;
+        }
     }
 }
