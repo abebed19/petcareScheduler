@@ -9,7 +9,7 @@ public class PetCareScheduler {
 
         while(true){
             System.out.println("Please select your desired Option from the following");
-            System.out.println("1. Create Pet");
+            System.out.println("1. Register pets");
             System.out.println("2. Create Appointments");
             System.out.println("3. Display pets");
             System.out.println("4. Display appointments for a Pet");
@@ -35,8 +35,26 @@ public class PetCareScheduler {
         String name = scanner.nextLine();
         System.out.println("Enter pet species: ");
         String petSpecies = scanner.nextLine();
-        System.out.println("Enter pet age: ");
-        int age = Integer.parseInt(scanner.nextLine().trim());
+
+        boolean isValid = true;
+        int age = 0;
+        while(isValid){
+            System.out.println("Enter pet age: ");
+            try {
+                 age = Integer.parseInt(scanner.nextLine().trim());
+                if (age <= 0) throw new IllegalArgumentException();
+                break;
+
+            }catch(NumberFormatException ex){
+                System.out.println("Please provide number :" + ex.getMessage());
+            }
+            catch (IllegalArgumentException e) {
+                System.out.println("Please provide valid age");
+            }
+
+
+        }
+
         System.out.println("Please enter owner name: ");
         String ownerName = scanner.nextLine();
         System.out.println("please provide contact info");
