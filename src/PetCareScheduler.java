@@ -33,6 +33,11 @@ public class PetCareScheduler {
                 case "3":
                     saveData();
                     break;
+                case "4":
+                    displayPets();
+                    break;
+
+
                 default:
                     System.out.println("Invalid Option please provide a valid option");
 
@@ -118,6 +123,24 @@ public class PetCareScheduler {
 
         }catch (IOException ex){
             System.out.println("Error while saving data: "+ ex.getMessage());
+        }
+    }
+
+    public static void displayPets(){
+        if(pets.isEmpty()){
+            System.out.println("No pets registered");
+            return;
+        }
+        for(Pet p : pets.values()){
+            System.out.println(p);
+             if(p.getAppointments().isEmpty()){
+                 for (Appointment ap : p.getAppointments()){
+                     System.out.println(ap);
+                 }
+             }else {
+                 System.out.println("No Appointment found");
+             }
+
         }
     }
 }
