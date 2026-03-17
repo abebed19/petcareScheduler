@@ -81,7 +81,7 @@ public class PetCareScheduler {
 
         while(true){
             try{
-                dateTime = LocalDateTime.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                dateTime = LocalDateTime.parse(scanner.nextLine());
                 break;
             }catch(Exception ex){
                 System.out.println("Please provide date and time using yyyy-MM-dd HH:mm:ss");
