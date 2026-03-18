@@ -1,6 +1,4 @@
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,10 +17,10 @@ public class PetCareScheduler {
             System.out.println("Please select your desired Option from the following");
             System.out.println("1. Register pets");
             System.out.println("2. Schedule appointments");
-            System.out.println("3. Save Data");
-            System.out.println("4. Display  Pets");
-            System.out.println("5. Generate Report");
-            System.out.println("6. Exit");
+            System.out.println("3. Display Pets");
+            System.out.println("4. Generate Report");
+            System.out.println("5. Save and Exit");
+
 
             String option = scanner.nextLine();
 
@@ -35,14 +33,14 @@ public class PetCareScheduler {
                     scheduleAppointment();
                     break;
                 case "3":
-                    saveData();
-                    break;
-                case "4":
                     displayPets();
                     break;
-                case "5":
+                case "4":
                     generateReport();
                     break;
+                case "5":
+                    saveData();
+                    System.exit(0);
                 default:
                     System.out.println("Invalid Option please provide a valid option");
 
@@ -132,6 +130,18 @@ public class PetCareScheduler {
 
         }catch (IOException ex){
             System.out.println("Error while saving data: "+ ex.getMessage());
+        }
+    }
+    public static void loadData(){
+        try{
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Pets.csv"));
+            pets  = (HashMap<String,Pet>) ois.readObject();
+        } catch (FileNotFoundException e) {
+            System.out.println("Error while reading data: "+ e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error while reading data: "+ e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error while reading data: "+ e.getMessage());
         }
     }
 
