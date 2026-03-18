@@ -140,7 +140,8 @@ public class PetCareScheduler {
         }
         for(Pet p : pets.values()){
             System.out.println(p);
-             if(p.getAppointments().isEmpty()){
+             if(!p.getAppointments().isEmpty()){
+                 System.out.println("Appointments for the pet");
                  for (Appointment ap : p.getAppointments()){
                      System.out.println(ap);
                  }
@@ -149,6 +150,27 @@ public class PetCareScheduler {
              }
 
         }
+        for(Pet p : pets.values()){
+            if(!p.getAppointments().isEmpty()){
+                System.out.println("Upcoming Appointment for the pets");
+                for(Appointment ap : p.getAppointments()){
+                    if(ap.getDateTime().isAfter(LocalDateTime.now())){
+                        System.out.println(ap);
+                    }
+                }
+            }
+        }
+        for(Pet p : pets.values()){
+            if(!p.getAppointments().isEmpty()){
+                System.out.println("Past Appointment historys");
+                for(Appointment ap : p.getAppointments()){
+                    if(ap.getDateTime().isBefore(LocalDateTime.now())){
+                        System.out.println(ap);
+                    }
+                }
+            }
+        }
+
     }
     public static void generateReport(){
         if(pets.isEmpty()){
