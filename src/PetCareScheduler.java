@@ -1,6 +1,8 @@
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -178,13 +180,28 @@ public class PetCareScheduler {
             return;
         }
         int totalPets = pets.size();
-        System.out.println("Total  pets exist in our catalog :"+ totalPets);
-        int totalAppointments =0;
-        for(Pet pet : pets.values()){
-            if(!pet.getAppointments().isEmpty()){
-                totalAppointments = totalAppointments + pet.getAppointments().size();
+
+        for(Pet p : pets.values()){
+            if(p.getAppointments().isEmpty()){
+                System.out.println("No Appointment found");
+                return;
+            }else{
+                for(Appointment ap : p.getAppointments()){
+                    LocalDateTime toDay =LocalDateTime.now();
+                    LocalDateTime startOfNexTWeek = toDay.with(DayOfWeek.MONDAY).plusWeeks(1);
+                    LocalDateTime endOfNextWeek = startOfNexTWeek.plusDays(6);
+                    System.out.println("Appointments in the upcoming week");
+                    if(!ap.getDateTime().isBefore(startOfNexTWeek) && !ap.getDateTime().isAfter(endOfNextWeek)){
+                        System.out.println(ap);
+                    }
+                    LocalDateTime lastSixMonth = toDay.minusMonths(6);
+                    System.out.println("Over Due Apointments");
+                    if(ap.getDateTime().isBefore(lastSixMonth)){
+                        System.out.println(ap);
+                    }
+
+                }
             }
         }
-        System.out.println("Total Appointments handled: " + totalAppointments);
     }
 }
