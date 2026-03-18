@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -97,9 +98,13 @@ public class PetCareScheduler {
         while(true){
             try{
                 dateTime = LocalDateTime.parse(scanner.nextLine());
+                if(!dateTime.isAfter(LocalDateTime.now())) throw new  IllegalArgumentException("Please provide valid date after the current date");
                 break;
-            }catch(Exception ex){
-                System.out.println("Please provide date and time using yyyy-MM-dd HH:mm:ss");
+            }catch(IllegalArgumentException ex){
+                System.out.println(ex.getMessage());
+            }
+            catch (DateTimeParseException ex){
+                System.out.println(ex.getMessage());
             }
         }
         System.out.println("Enter notes ");
